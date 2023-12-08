@@ -75,5 +75,32 @@ namespace AdventCodeTest
             var newLine = new string(transformedLine.ToArray());
             return newLine;
         }
+
+
+        [Test]
+        public void DayTwo()
+        {
+            var input = File.ReadAllText(Directory.GetCurrentDirectory() + "\\InputFiles\\DayTwo.txt");
+            var lines = input.Split(Environment.NewLine);
+
+            const int MAX_RED = 12;
+            const int MAX_GREEN = 13;
+            const int MAX_BLUE = 14;
+
+            var colorConfig = new Dictionary<string, int>
+            {
+                { "red", 12 },
+                { "green", 13 },
+                { "blue", 14 }
+            };
+
+            var runningTotal = 0;
+
+            foreach(var line in lines)
+            {
+                var idLine = line.Substring(5, 1);
+
+            }
+        }
     }
 }
