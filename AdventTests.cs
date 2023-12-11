@@ -102,11 +102,16 @@ namespace AdventCodeTest
             foreach(var line in lines)
             {
                 var sanitizedLine = line.Split(":");
-                var idLine = (int)sanitizedLine.First().Last();
-                var games = line.Split(";");
-                foreach (var game in games)
+                var idLine = sanitizedLine[0];
+                var gameLine = sanitizedLine[1];
+                var gameId = int.Parse(idLine[^1].ToString());
+                var sets = gameLine.Split(";");
+                foreach (var set in sets)
                 {
-                    
+                    //check if each game is possible
+
+                    //if color key > value; break loop
+                    //if all sets possible, 
                 }
             }
         }
