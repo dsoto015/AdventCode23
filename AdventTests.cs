@@ -16,7 +16,7 @@ namespace AdventCodeTest
             int numOne = 0 ;
             int numTwo = 0;
             bool firstNumberEvaluated;
-           
+
             foreach (var line in lines)
             {
                 firstNumberEvaluated = false;
@@ -24,19 +24,22 @@ namespace AdventCodeTest
                 foreach (var character in transformedLine)
                 {
                     var isNumber = char.IsNumber(character);
-                    if(isNumber)
+                    if (isNumber)
                     {
                         if (!firstNumberEvaluated)
                         {
                             numOne = (int)char.GetNumericValue(character);
                             firstNumberEvaluated = true;
                         }
+
                         numTwo = (int)char.GetNumericValue(character);
                     }
                 }
+
                 var combinedNum = int.Parse(numOne.ToString() + numTwo.ToString());
                 runningTotal += combinedNum;
-             }
+            }
+
             Assert.That(runningTotal == 55488);
         }
 
@@ -98,9 +101,15 @@ namespace AdventCodeTest
 
             foreach(var line in lines)
             {
-                var idLine = line.Substring(5, 1);
-
+                var sanitizedLine = line.Split(":");
+                var idLine = (int)sanitizedLine.First().Last();
+                var games = line.Split(";");
+                foreach (var game in games)
+                {
+                    
+                }
             }
         }
+
     }
 }
