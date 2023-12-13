@@ -147,7 +147,26 @@ namespace AdventCodeTest
         [Test]
         public void DayThree()
         {
+            var input = File.ReadAllText(Directory.GetCurrentDirectory() + "\\InputFiles\\DayThree.txt");
+            var lines = input.Split(Environment.NewLine);
+            int rows = lines.Length;
 
+            int columns = lines[0].Split(' ').Length;
+            string[,] grid = new string[rows, columns];
+
+            for (int i = 0; i < rows; i++)
+            {
+                var values = lines[i].Split(' ');
+
+                for (int j = 0; j < columns; j++)
+                {
+                    grid[i, j] = values[j];
+                }
+            }
+
+    
+            Console.WriteLine(grid);
         }
+
     }
 }
