@@ -79,17 +79,45 @@ namespace AdventCodeTest
             return newLine;
         }
 
-
         [Test]
         public void DayTwo()
         {
             var input = File.ReadAllText(Directory.GetCurrentDirectory() + "\\InputFiles\\DayTwo.txt");
             var lines = input.Split(Environment.NewLine);
+                        var runningTotal = 0;
 
-            const int MAX_RED = 12;
-            const int MAX_GREEN = 13;
-            const int MAX_BLUE = 14;
+            foreach(var line in lines)
+            {
+                var sanitizedLine = line.Split(":");
+                var idLine = sanitizedLine[0];
+                var gameLine = sanitizedLine[1];
+                var gameId = int.Parse(idLine.Trim().Split(" ")[1]);
+                var gameSets = gameLine.Split(";");
+                var gamePossible = false;
+                foreach (var set in gameSets)
+                {
+                    var rolls = set.Split(",");
+                    var isValidGame = IsGameValid(rolls);
+                    if (!isValidGame)
+                    {
+                        gamePossible = false;
+                        Console.WriteLine($"game {gameId} not possible");
+                        break;
+                    }
+                    gamePossible = true;
+                }
+                if (gamePossible)
+                {
+                    runningTotal += gameId;
+                    Console.WriteLine($"game {gameId} possible!");
+                }
+            }
+            Console.WriteLine(runningTotal);
+            Assert.That(runningTotal == 2369);
+        }
 
+        private bool IsGameValid(string[] rolls)
+        {
             var colorConfig = new Dictionary<string, int>
             {
                 { "red", 12 },
@@ -97,24 +125,29 @@ namespace AdventCodeTest
                 { "blue", 14 }
             };
 
-            var runningTotal = 0;
-
-            foreach(var line in lines)
+            foreach(var roll in rolls)
             {
-                var sanitizedLine = line.Split(":");
-                var idLine = sanitizedLine[0];
-                var gameLine = sanitizedLine[1];
-                var gameId = int.Parse(idLine[^1].ToString());
-                var sets = gameLine.Split(";");
-                foreach (var set in sets)
-                {
-                    //check if each game is possible
+                var cleanRollLine = roll.Trim();
+                var numberColorArr = cleanRollLine.Split(" ");
+                var numberRoll = int.Parse(numberColorArr[0]);
+                var colorRoll = numberColorArr[1];
+                if (!colorConfig.ContainsKey(colorRoll))
+                    break;
+                var valueExists = colorConfig.TryGetValue(colorRoll, out var matchingColorValue);
+                if (!valueExists)
+                    return false;
 
-                    //if color key > value; break loop
-                    //if all sets possible, 
-                }
+                if (numberRoll > matchingColorValue)
+                    return false;
             }
+            
+            return true;
         }
 
+        [Test]
+        public void DayThree()
+        {
+
+        }
     }
 }
